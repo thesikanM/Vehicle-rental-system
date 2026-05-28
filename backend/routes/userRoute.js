@@ -1,0 +1,36 @@
+import express from "express";
+
+import { verifyToken } from "../utils/verifyUser.js";
+import { updateUser ,deleteUser , signOut } from "../controllers/userControllers/userController.js";
+import { checkAvailability, listAllVehicles, searchCar, showVehicleDetails } from "../controllers/userControllers/userAllVehiclesController.js";
+import { editUserProfile } from "../controllers/userControllers/userProfileController.js";
+import { BookCar, razorpayOrder, getVehiclesWithoutBooking, filterVehicles, showOneofkind, showAllVariants, findBookingsOfUser, sendBookingDetailsEamil, latestbookings } from "../controllers/userControllers/userBookingController.js";
+
+
+const router = express.Router()
+
+// Protected routes with verifyToken middleware
+router.post('/update/:id', verifyToken, updateUser)
+router.delete('/delete/:id', verifyToken, deleteUser)
+router.get('/signout', signOut)
+router.get('/listAllVehicles', listAllVehicles)
+router.post('/showVehicleDetails', showVehicleDetails)
+router.post('/editUserProfile/:id', verifyToken, editUserProfile)
+router.post('/razorpay', verifyToken, razorpayOrder)
+router.post('/bookCar', verifyToken, BookCar)
+router.post('/filterVehicles', filterVehicles)
+router.post('/getVehiclesWithoutBooking', getVehiclesWithoutBooking, showAllVariants)
+router.post('/showSingleofSameModel', getVehiclesWithoutBooking, showOneofkind)
+router.post('/findBookingsOfUser', verifyToken, findBookingsOfUser)
+router.post('/latestbookings', verifyToken, latestbookings)
+router.post('/sendBookingDetailsEamil', verifyToken, sendBookingDetailsEamil)
+
+
+
+
+
+
+
+
+
+export default router
